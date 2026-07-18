@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0c0709">
+<title>Feliz Cumpleaños</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+
+/* =====================================================================
+   EDITÁ ACÁ TUS DATOS — no hace falta tocar nada más abajo
+   ===================================================================== */
+</style>
+<script>
+  const CONFIG = {
+    // El nombre de ella
+    nombreElla: "Mi princesa\nPaula",
+    // Tu nombre (firma de la carta)
+    firmante: "Sebas",
+    // Título chico arriba del nombre en la portada
+    eyebrow: "veintiún años de amarte",
+
+    // La carta. Cada elemento del array es un párrafo.
+    carta: [
+      "Mi princesa hermosa, hoy es el día más importante de mi vida, porque hace veintiún años nació quien es el amor de mi vida.",
+      "Quiero que sepas que estoy profundamente agradecido por que hayas llegado a mi vida, pues eres tú quien se encarga de iluminarla cada vez que la oscuridad llega.",
+      "Mi vida, en este día quiero que recuerdes que eres la mujer más hermosa del mundo, por dentro y por fuera, y nunca dejes que nadie te diga lo contrario.",
+      "Eres la calma en mis días difíciles y la razón de mi sonrisa en los sencillos; eres la persona que quiero a mi lado en cada capítulo que todavía no hemos escrito.",
+      "Que este nuevo año te encuentre tan segura de lo hermosa, valiosa y amada que eres, como lo estoy yo cada día que despierto pensando en ti.",
+      "Feliz cumpleaños, mi amor. Te elijo hoy, como todos los días desde que te conozco."
+    ],
+
+    // Las 21 razones. Escribí las que quieras, en el orden que quieras.
+    razones: [
+      "Por cómo te ríes con todo el cuerpo, sin frenarte.",
+      "Por acordarte de cosas que yo dije una sola vez, hace meses.",
+      "Por tu forma de defender lo que piensas, aunque sea incómodo.",
+      "Por cómo cuidas a la gente que quieres, sin que te lo pidan.",
+      "Por tu paciencia conmigo en mis peores días.",
+      "Por tu curiosidad, siempre queriendo aprender algo nuevo.",
+      "Por la forma en que hablas de tus sueños, con los ojos brillando.",
+      "Por tu honestidad, aunque a veces duela.",
+      "Por cómo transformas cualquier lugar en un lugar lindo.",
+      "Por tu manera de abrazar, que arregla días enteros.",
+      "Por tu humor, que me sorprende incluso después de tanto tiempo.",
+      "Por tu fuerza en los momentos donde nadie te vio flaquear.",
+      "Por cómo te emocionas con las cosas simples.",
+      "Por tu gusto musical, aunque a veces no lo entienda del todo.",
+      "Por tu manera de mirarme cuando crees que no me doy cuenta.",
+      "Por tus manías, que ya son parte de lo que amo de ti.",
+      "Por tu generosidad, incluso cuando no te sobra nada.",
+      "Por cómo haces que lo cotidiano se sienta especial.",
+      "Por tu valentía para empezar de nuevo cuando hace falta.",
+      "Por todo lo que todavía no sé de ti y me muero por descubrir.",
+      "Por elegirme, un día cualquiera, sin que nadie te lo pidiera."
+    ],
+
+    // Fotos de ustedes. "src" apunta a la carpeta /images (ya están tus 6 fotos ahí).
+    // "caption" es el textito abajo de cada foto — editalo como quieras.
+    galeria: [
+      { src: "images/foto1.jpg", caption: "el día que fuimos Spider-Man y Spider-Gwen" },
+      { src: "images/foto3.jpg", caption: "esa mirada tuya que ya conozco de memoria" },
+      { src: "images/foto2.jpg", caption: "nubes, arte y una canción sonando de fondo" },
+      { src: "images/foto5.jpg", caption: "esa mirada perdida que me enamora" },
+      { src: "images/foto4.jpg", caption: "así, de cerca, es como más me gusta verte" },
+      { src: "images/foto6.jpg", caption: "hasta en una foto cualquiera te ves hermosa" }
+    ],
+
+    // Música de fondo. Los archivos ya están en la carpeta /musica.
+    playlist: [
+      { titulo: "I Really Want to Stay At Your House", artista: "Rosa Walton", archivo: "musica/cancion6.mp3" },
+      { titulo: "Million Pictures of You", artista: "", archivo: "musica/cancion1.mp3" },
+      { titulo: "Chocolate", artista: "Jesse & Joy", archivo: "musica/cancion2.mp3" },
+      { titulo: "Agora Hills", artista: "Doja Cat", archivo: "musica/cancion3.mp3" },
+      { titulo: "A Thousand Years", artista: "Christina Perri", archivo: "musica/cancion4.mp3" },
+      { titulo: "Perfect", artista: "Ed Sheeran", archivo: "musica/cancion5.mp3" }
+    ]
+  };
+</script>
+</head>
+<body>
+
+<canvas id="petals"></canvas>
+
+<!-- ============ PORTADA ============ -->
+<section class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow" id="eyebrow"></p>
+    <h1 class="hero-name" id="heroName" aria-label="">
+      <!-- letras inyectadas por JS -->
+    </h1>
+    <div class="hero-rule"><span></span></div>
+    <p class="hero-sub">hay una carta esperándote más abajo</p>
+    <button class="scroll-cue" id="scrollCue" aria-label="Bajar a la carta">
+      <svg width="22" height="34" viewBox="0 0 22 34" fill="none">
+        <rect x="1" y="1" width="20" height="32" rx="10" stroke="currentColor" stroke-width="1.2"/>
+        <circle class="cue-dot" cx="11" cy="10" r="2.6" fill="currentColor"/>
+      </svg>
+    </button>
+  </div>
+</section>
+
+<!-- ============ CARTA ============ -->
+<section class="letter-section" id="letterSection">
+  <div class="envelope-wrap" id="envelopeWrap">
+    <div class="envelope" id="envelope">
+      <div class="envelope-back"></div>
+      <div class="envelope-letter-peek"></div>
+      <div class="envelope-flap"></div>
+      <div class="envelope-seal">
+        <svg viewBox="0 0 40 40" width="34" height="34">
+          <circle cx="20" cy="20" r="19" fill="none" stroke="currentColor" stroke-width="1"/>
+          <path d="M20 10 C 23 15, 23 25, 20 30 C 17 25, 17 15, 20 10 Z" fill="currentColor" opacity="0.9"/>
+        </svg>
+      </div>
+    </div>
+    <p class="tap-hint">toca el sobre</p>
+  </div>
+
+  <article class="letter-paper" id="letterPaper">
+    <p class="letter-kicker">para ti</p>
+    <div class="letter-body" id="letterBody"></div>
+    <p class="letter-sign" id="letterSign"></p>
+  </article>
+</section>
+
+<!-- ============ GALERÍA ============ -->
+<section class="gallery-section" id="gallerySection">
+  <header class="gallery-header">
+    <p class="reasons-eyebrow">postales</p>
+    <h2 class="reasons-title">así te veo yo</h2>
+  </header>
+  <div class="gallery-field" id="galleryField"></div>
+</section>
+
+<!-- ============ 21 RAZONES ============ -->
+<section class="reasons-section" id="reasonsSection">
+  <header class="reasons-header">
+    <p class="reasons-eyebrow">no una, no diez</p>
+    <h2 class="reasons-title">21 razones para amarte</h2>
+    <p class="reasons-count"><span id="foundCount">0</span> / 21 descubiertas</p>
+  </header>
+
+  <div class="reasons-field" id="reasonsField"></div>
+</section>
+
+<footer class="page-footer">
+  <p>hecha con lo que siento, para ti.</p>
+</footer>
+
+<div class="player" id="player">
+  <button class="player-btn" id="playBtn" aria-label="Reproducir música" aria-pressed="false">
+    <svg id="playIcon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    <svg id="pauseIcon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+  </button>
+  <div class="player-info">
+    <p class="player-title" id="playerTitle">—</p>
+    <p class="player-artist" id="playerArtist">toca play</p>
+  </div>
+  <button class="player-btn small" id="nextBtn" aria-label="Siguiente canción">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5l10 7-10 7zM17 5h2v14h-2z"/></svg>
+  </button>
+</div>
+<audio id="bgAudio" preload="none"></audio>
+
+<style>
+:root{
+  --plum-deep: #0c0709;
+  --plum-panel: #170d12;
+  --plum-line: #3d2028;
+  --rose: #a52a52;
+  --blush: #f5cddb;
+  --champagne: #e893b3;
+  --ivory: #f1e6ea;
+  --ivory-dim: #c2a2ae;
+
+  --font-display: 'Cormorant SC', serif;
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-sans: 'Jost', sans-serif;
+}
+
+*{ box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html{ scroll-behavior: smooth; }
+body{
+  margin:0;
+  background: var(--plum-deep);
+  color: var(--ivory);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
+
+#petals{
+  position: fixed; inset:0; width:100%; height:100%;
+  pointer-events:none; z-index: 1; opacity: 0.55;
+}
+
+/* ---------- HERO ---------- */
+.hero{
+  position: relative;
+  min-height: 100svh;
+  display:flex; align-items:center; justify-content:center;
+  text-align:center;
+  padding: 6vh 6vw;
+  background:
+    radial-gradient(ellipse 60% 45% at 50% 20%, rgba(165,42,82,0.38), transparent 70%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(232,147,179,0.10), transparent 70%),
+    var(--plum-deep);
+  z-index: 2;
+}
+.hero-inner{ max-width: 720px; }
+.eyebrow{
+  font-family: var(--font-sans);
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  font-size: clamp(0.62rem, 1.4vw, 0.78rem);
+  color: var(--champagne);
+  margin: 0 0 1.6rem;
+  opacity:0;
+  animation: fadeUp 1s ease forwards 0.2s;
+}
+.hero-name{
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(3rem, 11vw, 7rem);
+  line-height: 1.05;
+  margin:0;
+  color: var(--blush);
+  letter-spacing: 0.02em;
+}
+.hero-name-line{
+  display: block;
+  white-space: nowrap;
+}
+.hero-name .letter{
+  display:inline-block;
+  opacity:0;
+  filter: blur(6px);
+  transform: translateY(14px);
+  animation: letterIn 0.7s cubic-bezier(.2,.8,.25,1) forwards;
+}
+@keyframes letterIn{ to{ opacity:1; filter: blur(0); transform: translateY(0); } }
+
+.hero-rule{
+  display:flex; justify-content:center; margin: 2.2rem 0 1.6rem;
+  opacity:0; animation: fadeUp 1s ease forwards 1.6s;
+}
+.hero-rule span{
+  width:0; height:1px; background: var(--rose);
+  animation: growLine 1.4s ease forwards 1.9s;
+}
+@keyframes growLine{ to{ width: 120px; } }
+
+.hero-sub{
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--ivory-dim);
+  margin:0 0 3rem;
+  opacity:0; animation: fadeUp 1s ease forwards 2.2s;
+}
+@keyframes fadeUp{ from{ opacity:0; transform: translateY(10px);} to{ opacity:1; transform: translateY(0);} }
+
+.scroll-cue{
+  background:none; border:none; color: var(--champagne);
+  cursor:pointer; opacity:0; animation: fadeUp 1s ease forwards 2.6s;
+  padding: 0.5rem;
+}
+.cue-dot{ animation: cueMove 1.8s ease-in-out infinite; }
+@keyframes cueMove{ 0%,100%{ transform: translateY(0); opacity:1;} 50%{ transform: translateY(8px); opacity:0.4;} }
+
+/* ---------- CARTA ---------- */
+.letter-section{
+  position: relative;
+  min-height: 100svh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding: 10vh 6vw;
+  z-index: 2;
+  background: linear-gradient(180deg, var(--plum-deep), var(--plum-panel) 40%, var(--plum-panel));
+}
+
+.envelope-wrap{ display:flex; flex-direction:column; align-items:center; }
+.envelope{
+  --w: min(320px, 78vw);
+  --h: calc(var(--w) * 0.66);
+  width: var(--w); height: var(--h);
+  position: relative;
+  cursor: pointer;
+  perspective: 1200px;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  touch-action: manipulation;
+}
+.envelope.opened{ pointer-events:none; }
+
+.envelope-back{
+  position:absolute; inset:0;
+  background: linear-gradient(160deg, #23121a, #150a0f);
+  border: 1px solid var(--plum-line);
+  border-radius: 4px;
+}
+.envelope-letter-peek{
+  position:absolute; left: 6%; right:6%; top: -6%;
+  height: 70%;
+  background: linear-gradient(180deg, #f8eef2, #f0dce4);
+  border-radius: 2px;
+  transform: translateY(0);
+  transition: transform 1.1s cubic-bezier(.2,.7,.2,1) 0.35s;
+  z-index: 1;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+}
+.envelope.opened .envelope-letter-peek{ transform: translateY(-135%); }
+
+.envelope-flap{
+  position:absolute; left:0; right:0; top:0; height: 56%;
+  background: linear-gradient(150deg, #33141f, #200b12);
+  clip-path: polygon(0 0, 100% 0, 50% 92%);
+  transform-origin: top center;
+  transform: rotateX(0deg);
+  transition: transform 0.9s cubic-bezier(.3,.7,.2,1);
+  z-index: 2;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+.envelope.opened .envelope-flap{ transform: rotateX(180deg); }
+
+.envelope-seal{
+  position:absolute; left:50%; top: 42%;
+  transform: translate(-50%,-50%);
+  width:44px; height:44px; border-radius:50%;
+  background: radial-gradient(circle at 35% 30%, #f0a8c4, #a52a52);
+  color: #2b0f18;
+  display:flex; align-items:center; justify-content:center;
+  z-index:3; box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.envelope.opened .envelope-seal{ opacity:0; transform: translate(-50%,-50%) scale(0.6); }
+
+.tap-hint{
+  font-family: var(--font-serif); font-style: italic;
+  color: var(--ivory-dim); margin-top: 1.6rem; font-size: 0.95rem;
+  transition: opacity 0.5s ease;
+}
+.tap-hint.hidden{ opacity:0; }
+
+.letter-paper{
+  max-width: 620px; width: 100%;
+  margin-top: 4rem;
+  background: linear-gradient(180deg, #f8eef2, #f0dce4);
+  color: #2b141e;
+  border-radius: 3px;
+  padding: clamp(2rem, 5vw, 3.6rem);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+  opacity: 0; max-height: 0; overflow:hidden;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.letter-paper.visible{ opacity:1; max-height: none; transform: translateY(0); overflow:visible; }
+
+.letter-kicker{
+  font-family: var(--font-sans); text-transform: uppercase;
+  letter-spacing: 0.3em; font-size: 0.68rem; color: var(--rose);
+  margin: 0 0 1.4rem;
+}
+.letter-body p{
+  font-family: var(--font-serif);
+  font-size: clamp(1.05rem, 2vw, 1.28rem);
+  line-height: 1.75;
+  margin: 0 0 1.3rem;
+  opacity:0; transform: translateY(10px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+.letter-body p.show{ opacity:1; transform: translateY(0); }
+.letter-sign{
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  text-align:right; margin: 2rem 0 0;
+  color: var(--rose);
+  opacity:0; transition: opacity 1s ease 0.3s;
+}
+.letter-sign.show{ opacity:1; }
+
+/* ---------- 21 RAZONES ---------- */
+.reasons-section{
+  position:relative; z-index:2;
+  padding: 12vh 6vw 14vh;
+  background: var(--plum-panel);
+  min-height: 100svh;
+}
+.reasons-header{ text-align:center; max-width: 640px; margin: 0 auto 5rem; }
+.reasons-eyebrow{
+  font-family: var(--font-sans); text-transform: uppercase;
+  letter-spacing: 0.4em; font-size: 0.7rem; color: var(--champagne);
+  margin: 0 0 1rem;
+}
+.reasons-title{
+  font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(2.1rem, 5vw, 3.2rem);
+  color: var(--blush); margin: 0 0 1.2rem;
+}
+.reasons-count{
+  font-family: var(--font-sans); color: var(--ivory-dim);
+  font-size: 0.9rem; letter-spacing: 0.05em;
+}
+#foundCount{ color: var(--champagne); font-weight:500; }
+
+.reasons-field{
+  max-width: 1100px; margin: 0 auto;
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: clamp(0.9rem, 2vw, 1.5rem);
+}
+
+.locket{
+  width: 148px; height: 148px;
+  perspective: 900px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.locket-inner{
+  position:relative; width:100%; height:100%;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(.3,.7,.25,1);
+}
+.locket.flipped .locket-inner{ transform: rotateY(180deg); }
+
+.locket-face{
+  position:absolute; inset:0;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column;
+  padding: 1rem;
+  text-align:center;
+}
+.locket-front{
+  background: linear-gradient(155deg, #241019, #140a0f);
+  border: 1px solid var(--plum-line);
+}
+.locket-front .num{
+  font-family: var(--font-display); font-size: 2.1rem;
+  color: var(--champagne);
+}
+.locket-front .lbl{
+  font-family: var(--font-sans); font-size: 0.6rem;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--ivory-dim); margin-top: 0.3rem;
+}
+.locket-back{
+  background: linear-gradient(155deg, #f8eef2, #f0dce4);
+  color: #2b141e;
+  transform: rotateY(180deg);
+  box-shadow: inset 0 0 0 1px rgba(165,42,82,0.25);
+}
+.locket-back p{
+  font-family: var(--font-serif); font-style: italic;
+  font-size: 0.86rem; line-height: 1.35; margin:0;
+}
+.locket:hover .locket-inner{ transform: translateY(-4px); }
+.locket.flipped:hover .locket-inner{ transform: rotateY(180deg) translateY(-4px); }
+
+/* gentle stagger reveal on scroll */
+.locket{ opacity:0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.locket.in-view{ opacity:1; transform: translateY(0); }
+
+/* ---------- FOOTER ---------- */
+.page-footer{
+  position:relative; z-index:2;
+  text-align:center; padding: 4rem 1rem 5rem;
+  background: var(--plum-panel);
+  font-family: var(--font-serif); font-style: italic;
+  color: var(--ivory-dim); font-size: 1rem;
+}
+
+/* ---------- GALERÍA ---------- */
+.gallery-section{
+  position: relative; z-index: 2;
+  padding: 12vh 6vw 10vh;
+  background: linear-gradient(180deg,
+    var(--plum-panel) 0%,
+    var(--plum-deep) 18%,
+    var(--plum-deep) 82%,
+    var(--plum-panel) 100%);
+}
+.gallery-header{ text-align:center; max-width: 640px; margin: 0 auto 4.5rem; }
+.gallery-field{
+  max-width: 1100px; margin: 0 auto;
+  display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start;
+  gap: clamp(1.4rem, 3vw, 2.4rem);
+}
+.polaroid{
+  background: linear-gradient(180deg, #f7ecf0, #ecd6df);
+  padding: 12px 12px 46px;
+  width: min(260px, 40vw);
+  box-shadow: 0 16px 32px rgba(0,0,0,0.4);
+  transform: rotate(var(--tilt, -3deg));
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  opacity: 0; translate: 0 20px;
+}
+.polaroid.in-view{ animation: polaroidIn 0.8s ease forwards; }
+@keyframes polaroidIn{ to{ opacity:1; translate: 0 0; } }
+.polaroid:hover{ transform: rotate(0deg) scale(1.04); box-shadow: 0 22px 44px rgba(0,0,0,0.5); z-index: 5; }
+.polaroid:nth-child(6n+1){ --tilt: -3.5deg; }
+.polaroid:nth-child(6n+2){ --tilt: 2.5deg; }
+.polaroid:nth-child(6n+3){ --tilt: -1.5deg; }
+.polaroid:nth-child(6n+4){ --tilt: 3deg; }
+.polaroid:nth-child(6n+5){ --tilt: -2.5deg; }
+.polaroid:nth-child(6n+6){ --tilt: 1.5deg; }
+.polaroid img{
+  display:block; width:100%; aspect-ratio: 4/5; object-fit: cover;
+}
+.polaroid figcaption{
+  position:absolute; left:0; right:0; bottom:10px;
+  text-align:center; margin:0; padding: 0 14px;
+  font-family: var(--font-serif); font-style: italic; color:#3c1a2a;
+  font-size: 0.92rem; line-height:1.25;
+}
+
+/* ---------- PLAYER ---------- */
+.player{
+  position: fixed; bottom: 20px; right: 20px; z-index: 20;
+  display:flex; align-items:center; gap: 0.7rem;
+  background: rgba(15,8,11,0.9);
+  border: 1px solid var(--plum-line);
+  border-radius: 999px;
+  padding: 0.5rem 0.7rem 0.5rem 0.5rem;
+  backdrop-filter: blur(8px);
+  max-width: min(280px, 62vw);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.player-btn{
+  flex: none; width: 34px; height:34px; border-radius:50%;
+  background: rgba(232,147,179,0.15);
+  border: 1px solid rgba(232,147,179,0.4);
+  color: var(--champagne);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition: transform 0.25s ease, background 0.25s ease;
+  touch-action: manipulation;
+}
+.player-btn:hover{ transform: scale(1.08); background: rgba(232,147,179,0.28); }
+.player-btn.small{ width:26px; height:26px; }
+.player-info{ overflow:hidden; }
+.player-title, .player-artist{
+  margin:0; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;
+  font-family: var(--font-sans);
+}
+.player-title{ font-size: 0.78rem; color: var(--ivory); }
+.player-artist{ font-size: 0.68rem; color: var(--ivory-dim); margin-top: 1px; }
+
+/* ---------- ROSAS CAYENDO ---------- */
+.falling-rose{
+  position: fixed; top: -40px; z-index: 3; pointer-events:none;
+  opacity: 0.9; will-change: transform, opacity;
+}
+
+button:focus-visible, .locket:focus-visible, .envelope:focus-visible{
+  outline: 2px solid var(--champagne); outline-offset: 3px;
+}
+
+@media (max-width: 480px){
+  .locket{ width: 42vw; height: 42vw; max-width: 165px; max-height:165px; }
+  .polaroid{ width: 62vw; }
+}
+</style>
+
+<script>
+/* ============ Setup de textos desde CONFIG ============ */
+document.getElementById('eyebrow').textContent = CONFIG.eyebrow;
+document.getElementById('heroName').setAttribute('aria-label', CONFIG.nombreElla.replace(/\n/g, ' '));
+document.title = "Feliz Cumpleaños, " + CONFIG.nombreElla.replace(/\n/g, ' ');
+
+const heroName = document.getElementById('heroName');
+const nombreLineas = CONFIG.nombreElla.split('\n');
+let letterCount = 0;
+nombreLineas.forEach((linea, li) => {
+  const lineDiv = document.createElement('div');
+  lineDiv.className = 'hero-name-line';
+  [...linea].forEach((ch) => {
+    const span = document.createElement('span');
+    span.className = 'letter';
+    span.textContent = ch === ' ' ? '\u00A0' : ch;
+    span.style.animationDelay = (0.5 + letterCount * 0.055) + 's';
+    lineDiv.appendChild(span);
+    letterCount++;
+  });
+  heroName.appendChild(lineDiv);
+});
+
+const letterBody = document.getElementById('letterBody');
+CONFIG.carta.forEach(par => {
+  const p = document.createElement('p');
+  p.textContent = par;
+  letterBody.appendChild(p);
+});
+document.getElementById('letterSign').textContent = '— ' + CONFIG.firmante;
+
+const reasonsField = document.getElementById('reasonsField');
+CONFIG.razones.slice(0,21).forEach((texto, i) => {
+  const locket = document.createElement('div');
+  locket.className = 'locket';
+  locket.tabIndex = 0;
+  locket.setAttribute('role','button');
+  locket.setAttribute('aria-label', 'Razón número ' + (i+1) + ', tocar para revelar');
+  locket.innerHTML = `
+    <div class="locket-inner">
+      <div class="locket-face locket-front">
+        <div class="num">${String(i+1).padStart(2,'0')}</div>
+        <div class="lbl">tocar</div>
+      </div>
+      <div class="locket-face locket-back"><p>${texto}</p></div>
+    </div>`;
+  reasonsField.appendChild(locket);
+});
+
+/* ============ Interacciones ============ */
+document.getElementById('scrollCue').addEventListener('click', () => {
+  document.getElementById('letterSection').scrollIntoView({behavior:'smooth'});
+});
+
+const envelope = document.getElementById('envelope');
+const letterPaper = document.getElementById('letterPaper');
+const tapHint = document.querySelector('.tap-hint');
+let opened = false;
+envelope.tabIndex = 0;
+envelope.setAttribute('role','button');
+envelope.setAttribute('aria-label','Abrir el sobre');
+
+function openEnvelope(){
+  if(opened) return;
+  opened = true;
+  envelope.classList.add('opened');
+  tapHint.classList.add('hidden');
+  setTimeout(() => {
+    letterPaper.classList.add('visible');
+    const paras = letterPaper.querySelectorAll('.letter-body p');
+    paras.forEach((p, i) => setTimeout(() => p.classList.add('show'), 250 + i * 500));
+    setTimeout(() => document.getElementById('letterSign').classList.add('show'), 250 + paras.length * 500 + 200);
+  }, 700);
+}
+envelope.addEventListener('click', openEnvelope);
+envelope.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openEnvelope(); } });
+
+let found = 0;
+const foundCountEl = document.getElementById('foundCount');
+document.querySelectorAll('.locket').forEach(l => {
+  const flip = () => {
+    if(!l.classList.contains('flipped')){
+      l.classList.add('flipped');
+      found++;
+      foundCountEl.textContent = found;
+    } else {
+      l.classList.remove('flipped');
+    }
+  };
+  l.addEventListener('click', flip);
+  l.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); flip(); } });
+});
+
+/* reveal lockets on scroll */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add('in-view'); io.unobserve(en.target); } });
+}, {threshold: 0.15});
+document.querySelectorAll('.locket').forEach(l => io.observe(l));
+
+/* ============ Galería ============ */
+const galleryField = document.getElementById('galleryField');
+CONFIG.galeria.forEach(item => {
+  const fig = document.createElement('figure');
+  fig.className = 'polaroid';
+  fig.innerHTML = `<img src="${item.src}" alt="${item.caption}" loading="lazy"><figcaption>${item.caption}</figcaption>`;
+  galleryField.appendChild(fig);
+});
+const ioPolaroid = new IntersectionObserver((entries) => {
+  entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add('in-view'); ioPolaroid.unobserve(en.target); } });
+}, {threshold: 0.12});
+document.querySelectorAll('.polaroid').forEach(p => ioPolaroid.observe(p));
+
+/* ============ Pétalos ambientales (canvas) ============ */
+const canvas = document.getElementById('petals');
+const ctx = canvas.getContext('2d');
+let W, H, petals = [];
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function resize(){
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = document.body.scrollHeight;
+}
+function makePetals(){
+  petals = [];
+  if(reduceMotion) return;
+  const count = Math.min(28, Math.floor(W/45));
+  for(let i=0;i<count;i++){
+    petals.push({
+      x: Math.random()*W, y: Math.random()*H,
+      r: 3 + Math.random()*4,
+      speed: 0.25 + Math.random()*0.45,
+      drift: Math.random()*0.6 - 0.3,
+      sway: Math.random()*Math.PI*2,
+      swaySpeed: 0.008 + Math.random()*0.01,
+      hue: Math.random() > 0.5 ? '#e893b3' : '#f5cddb'
+    });
+  }
+}
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  if(!reduceMotion){
+    petals.forEach(p => {
+      p.y += p.speed;
+      p.sway += p.swaySpeed;
+      p.x += Math.sin(p.sway) * 0.4 + p.drift * 0.15;
+      if(p.y > H) { p.y = -10; p.x = Math.random()*W; }
+      ctx.globalAlpha = 0.5;
+      ctx.fillStyle = p.hue;
+      ctx.beginPath();
+      ctx.ellipse(p.x, p.y, p.r, p.r*0.6, p.sway, 0, Math.PI*2);
+      ctx.fill();
+    });
+  }
+  requestAnimationFrame(draw);
+}
+window.addEventListener('resize', () => { resize(); makePetals(); });
+resize(); makePetals(); draw();
+setTimeout(() => { resize(); }, 800); // recalcular alto tras cargar contenido
+
+/* ============ Reproductor de playlist ============ */
+const bgAudio = document.getElementById('bgAudio');
+const playBtn = document.getElementById('playBtn');
+const nextBtn = document.getElementById('nextBtn');
+const playIcon = document.getElementById('playIcon');
+const pauseIcon = document.getElementById('pauseIcon');
+const playerTitle = document.getElementById('playerTitle');
+const playerArtist = document.getElementById('playerArtist');
+const playlist = CONFIG.playlist || [];
+let trackIndex = 0;
+let isPlaying = false;
+
+function loadTrack(i){
+  if(!playlist.length) return;
+  trackIndex = (i + playlist.length) % playlist.length;
+  const t = playlist[trackIndex];
+  bgAudio.src = t.archivo;
+  playerTitle.textContent = t.titulo;
+  playerArtist.textContent = t.artista;
+}
+function playAudio(){
+  bgAudio.play().then(() => {
+    isPlaying = true;
+    playBtn.setAttribute('aria-pressed', 'true');
+    playIcon.style.display = 'none';
+    pauseIcon.style.display = 'block';
+  }).catch(() => {
+    playerArtist.textContent = 'faltan tus mp3 en /musica';
+  });
+}
+function pauseAudio(){
+  bgAudio.pause();
+  isPlaying = false;
+  playBtn.setAttribute('aria-pressed', 'false');
+  playIcon.style.display = 'block';
+  pauseIcon.style.display = 'none';
+}
+if(playlist.length){
+  loadTrack(0);
+  playBtn.addEventListener('click', () => { isPlaying ? pauseAudio() : playAudio(); });
+  nextBtn.addEventListener('click', () => { loadTrack(trackIndex + 1); if(isPlaying) playAudio(); });
+  bgAudio.addEventListener('ended', () => { loadTrack(trackIndex + 1); playAudio(); });
+
+  // Intento de autoplay apenas carga la página.
+  playAudio();
+  // Si el navegador bloqueó el autoplay con sonido, arranca en cuanto haya
+  // el primer toque/click/scroll en la página (esto sí lo permiten todos).
+  const tryAutoplayOnFirstInteraction = () => {
+    if(!isPlaying) playAudio();
+    window.removeEventListener('click', tryAutoplayOnFirstInteraction);
+    window.removeEventListener('touchstart', tryAutoplayOnFirstInteraction);
+    window.removeEventListener('scroll', tryAutoplayOnFirstInteraction);
+    window.removeEventListener('keydown', tryAutoplayOnFirstInteraction);
+  };
+  window.addEventListener('click', tryAutoplayOnFirstInteraction);
+  window.addEventListener('touchstart', tryAutoplayOnFirstInteraction);
+  window.addEventListener('scroll', tryAutoplayOnFirstInteraction);
+  window.addEventListener('keydown', tryAutoplayOnFirstInteraction);
+} else {
+  document.getElementById('player').style.display = 'none';
+}
+
+/* ============ Rosas cayendo (de vez en cuando) ============ */
+const roseSVG = `<svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+  <path d="M15 4c3 2 4.5 5 3 8-1 2-3.2 3-5.5 2.4C10 13.6 9 11 10.3 9c1.1-1.7 3-2.6 4.7-2.6z" fill="#c0526f"/>
+  <path d="M15 4c-3 2-4.5 5-3 8 1 2 3.2 3 5.5 2.4 2.5-0.8 3.5-3.4 2.2-5.4C18.6 6.3 16.7 5.2 15 4z" fill="#e2789a"/>
+  <path d="M15 6c1.6 1.4 2.2 3.2 1.2 4.8-0.8 1.2-2.4 1.6-3.7 1-1.4-0.7-2-2.3-1.2-3.7C11.9 6.8 13.4 6 15 6z" fill="#f0a3bb"/>
+  <path d="M15.4 13.5c-0.7 5-0.4 9.5 0.4 15" stroke="#5c7a4f" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+  <path d="M15.9 19c-1.6-0.3-3-0.1-4 1.3" stroke="#5c7a4f" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+</svg>`;
+
+function spawnRose(){
+  const el = document.createElement('div');
+  el.className = 'falling-rose';
+  el.innerHTML = roseSVG;
+  const startX = Math.random() * window.innerWidth;
+  const size = 20 + Math.random() * 18;
+  const duration = 7000 + Math.random() * 5000;
+  const sway = 40 + Math.random() * 60;
+  const rotateDir = Math.random() > 0.5 ? 1 : -1;
+  el.style.left = startX + 'px';
+  el.style.width = size + 'px';
+  el.style.height = size + 'px';
+  document.body.appendChild(el);
+
+  const endY = window.innerHeight + 60;
+  const anim = el.animate([
+    { transform: `translate(0px, 0px) rotate(0deg)`, opacity: 0 },
+    { transform: `translate(${sway * 0.5 * rotateDir}px, ${endY * 0.4}px) rotate(${140*rotateDir}deg)`, opacity: 0.9, offset: 0.25 },
+    { transform: `translate(${-sway * rotateDir}px, ${endY * 0.75}px) rotate(${280*rotateDir}deg)`, opacity: 0.9, offset: 0.7 },
+    { transform: `translate(${sway * 0.3 * rotateDir}px, ${endY}px) rotate(${420*rotateDir}deg)`, opacity: 0 }
+  ], { duration, easing: 'ease-in' });
+  anim.onfinish = () => el.remove();
+}
+
+function roseBurst(){
+  if(reduceMotion) { scheduleRoseBurst(); return; }
+  const count = 6 + Math.floor(Math.random() * 6);
+  for(let i=0;i<count;i++){
+    setTimeout(spawnRose, i * (450 + Math.random()*350));
+  }
+  scheduleRoseBurst();
+}
+function scheduleRoseBurst(){
+  setTimeout(roseBurst, 22000 + Math.random() * 18000);
+}
+scheduleRoseBurst();
+</script>
+</body>
+</html>
