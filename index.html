@@ -10,20 +10,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 
-/* =====================================================================
-   EDITÁ ACÁ TUS DATOS — no hace falta tocar nada más abajo
-   ===================================================================== */
 </style>
 <script>
   const CONFIG = {
-    // El nombre de ella
     nombreElla: "Mi princesa\nPaula",
-    // Tu nombre (firma de la carta)
     firmante: "Sebas",
-    // Título chico arriba del nombre en la portada
     eyebrow: "veintiún años de amarte",
-
-    // La carta. Cada elemento del array es un párrafo.
     carta: [
       "Mi princesa hermosa, hoy es el día más importante de mi vida, porque hace veintiún años nació quien es el amor de mi vida.",
       "Quiero que sepas que estoy profundamente agradecido por que hayas llegado a mi vida, pues eres tú quien se encarga de iluminarla cada vez que la oscuridad llega.",
@@ -33,7 +25,6 @@
       "Feliz cumpleaños, mi amor. Te elijo hoy, como todos los días desde que te conozco."
     ],
 
-    // Las 21 razones. Escribí las que quieras, en el orden que quieras.
     razones: [
       "Por cómo te ríes con todo el cuerpo, sin frenarte.",
       "Por acordarte de cosas que yo dije una sola vez, hace meses.",
@@ -58,8 +49,6 @@
       "Por elegirme, un día cualquiera, sin que nadie te lo pidiera."
     ],
 
-    // Fotos de ustedes. "src" apunta a la carpeta /images (ya están tus 6 fotos ahí).
-    // "caption" es el textito abajo de cada foto — editalo como quieras.
     galeria: [
       { src: "images/foto1.jpg", caption: "el día que fuimos Spider-Man y Spider-Gwen" },
       { src: "images/foto3.jpg", caption: "esa mirada tuya que ya conozco de memoria" },
@@ -69,7 +58,6 @@
       { src: "images/foto6.jpg", caption: "hasta en una foto cualquiera te ves hermosa" }
     ],
 
-    // Música de fondo. Los archivos ya están en la carpeta /musica.
     playlist: [
       { titulo: "I Really Want to Stay At Your House", artista: "Rosa Walton", archivo: "musica/cancion6.mp3" },
       { titulo: "Million Pictures of You", artista: "", archivo: "musica/cancion1.mp3" },
@@ -770,10 +758,7 @@ if(playlist.length){
   nextBtn.addEventListener('click', () => { loadTrack(trackIndex + 1); if(isPlaying) playAudio(); });
   bgAudio.addEventListener('ended', () => { loadTrack(trackIndex + 1); playAudio(); });
 
-  // Intento de autoplay apenas carga la página.
   playAudio();
-  // Si el navegador bloqueó el autoplay con sonido, arranca en cuanto haya
-  // el primer toque/click/scroll en la página (esto sí lo permiten todos).
   const tryAutoplayOnFirstInteraction = () => {
     if(!isPlaying) playAudio();
     window.removeEventListener('click', tryAutoplayOnFirstInteraction);
