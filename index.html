@@ -742,7 +742,7 @@ function playAudio(){
     playIcon.style.display = 'none';
     pauseIcon.style.display = 'block';
   }).catch(() => {
-    playerArtist.textContent = 'faltan tus mp3 en /musica';
+    playerArtist.textContent = '';
   });
 }
 function pauseAudio(){
